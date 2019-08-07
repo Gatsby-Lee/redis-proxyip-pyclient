@@ -28,13 +28,13 @@ def test_get_proxyip_with_default_config_no_available_proxyip(client):
         IN_USE_PROXYIP_POOL,
         USED_PROXYIP_POOL,
     )
-    from redis_proxyip_client.excep import FailedToGetProxyip
+    from redis_proxyip_client.excep import FailedToGetProxyipException
 
     client._redis.delete(PROXYIP_POOL)
     client._redis.delete(IN_USE_PROXYIP_POOL)
     client._redis.delete(USED_PROXYIP_POOL)
 
-    with pytest.raises(FailedToGetProxyip):
+    with pytest.raises(FailedToGetProxyipException):
         client.get_proxyip()
 
 

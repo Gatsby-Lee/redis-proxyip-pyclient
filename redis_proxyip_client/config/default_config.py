@@ -7,8 +7,8 @@ import time
 
 from be_proxy_ip import ProxyIP
 from redis_proxyip_client.excep import (
-    FailedToGetProxyip,
-    FailedToReleaseProxyip,
+    FailedToGetProxyipException,
+    FailedToReleaseProxyipException,
 )
 
 LUA_GET_PROXYIP = """
@@ -108,7 +108,7 @@ class DefaultRedisProxyipConfig(object):
     @classmethod
     def _handler_getting_proxyip_response(cls, redis_response):
         if redis_response is None or redis_response[0] is None:
-            raise FailedToGetProxyip()
+            raise FailedToGetProxyipException()
 
         proxyip_tuple = json.loads(redis_response[0])
         proxyip_obj = ProxyIP.create_from_tuple(proxyip_tuple)
@@ -137,7 +137,7 @@ class DefaultRedisProxyipConfig(object):
         if redis_response is None \
                 or redis_response[0] is None \
                 or redis_response[1] is None:
-            raise FailedToReleaseProxyip()
+            raise FailedToReleaseProxyipException()
 
     @classmethod
     def handler_releasing_proxyip(cls, redis_lua_instance, proxyip_obj):

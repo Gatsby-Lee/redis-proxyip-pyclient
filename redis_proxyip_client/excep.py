@@ -4,15 +4,15 @@
 """
 
 
-class FailedToGetProxyip(Exception):
+class FailedToGetProxyipException(Exception):
     pass
 
 
-class FailedToReleaseProxyip(Exception):
+class FailedToReleaseProxyipException(Exception):
     pass
 
 
 __all__ = (
-    'FailedToGetProxyip',
-    'FailedToReleaseProxyip',
+    'FailedToGetProxyipException',
+    'FailedToReleaseProxyipException',
 )
