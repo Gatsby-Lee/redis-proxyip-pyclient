@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.6"
+#  - "3.7" # travis doesn't support 3.7 yet.
+# command to install dependencies
+install:
+    - pip install .[test]
+# command to run tests
+script:
+  - pytest # or py.test for Python versions 3.5 and below
+
+services:
+  - redis-server
