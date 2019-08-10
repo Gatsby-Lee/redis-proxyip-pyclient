@@ -2,7 +2,10 @@
 :author: Gatsby Lee
 :since: 2019-08-06
 """
-from retry_redis import Redis
+from redis_proxyip_client.third_party import (
+    ProxyIP,
+    Redis,
+)
 from redis_proxyip_client.config.default_config import (
     DefaultRedisProxyipConfig,
 )
@@ -40,3 +43,27 @@ class RedisProxyipClient(object):
         """
         return self._config.handler_releasing_proxyip(
             self._lua_releasing_proxyip, proxyip_obj)
+
+
+class NoProxyipClient(object):
+
+    def __init__(self):
+        self._proxy_obj = ProxyIP.create_noproxy()
+
+    def get_proxyip(self):
+        return self._proxy_obj
+
+    def release_proxyip(self, proxy_obj):
+        pass
+
+
+class OneProxyipClient(object):
+
+    def __init__(self, proxyip_obj):
+        self._proxyip_obj = proxyip_obj
+
+    def get_proxyip(self):
+        return self._proxyip_obj
+
+    def release_proxyip(self, proxy_obj):
+        pass
